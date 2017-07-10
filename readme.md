@@ -1,5 +1,9 @@
 Google Apps Script as a Backend.
 ----
+[![Build Status](https://travis-ci.org/tenbits/apps-script-backend.png?branch=master)](https://travis-ci.org/tenbits/apps-script-backend)
+[![NPM version](https://badge.fury.io/js/apps-script-backend.svg)](http://badge.fury.io/js/apps-script-backend)
+
+----
 
 _First iteration of the library._
 

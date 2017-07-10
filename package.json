@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "devDependencies": {
     "@types/google-apps-script": "0.0.13",
+    "atma": "^0.10.68",
     "atma-loader-ts": "^1.0.0"
+  },
+  "scripts": {
+    "test": "atma test"
   },
   "atma": {
     "plugins": [
@@ -11,7 +15,10 @@
     ],
     "settings": {
       "atma-loader-ts": {
-        "extensions": ["ts", "test"],
+        "extensions": [
+          "ts",
+          "test"
+        ],
         "typescript": {
           "compilerOptions": {
             "module": "AMD",
