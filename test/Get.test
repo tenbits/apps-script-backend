@@ -1,0 +1,24 @@
+import { IAction } from '../src/Router';
+import Application from '../src/Application';
+import Router from '../src/Router';
+
+const GetEchoAction = <IAction> {
+    process (request, app) {
+        const { foo } = request.parameter;
+        return { echoFoo: foo };
+    }
+}
+
+let app = new Application({
+	routes: {
+		'$get /echo': GetEchoAction
+	},
+	spreadsheetId: 'test'
+});
+
+UTest({
+    async 'should get echo' () {
+        let resp = await app.process('get', { parameter: { foo: 'Hello', action: '/echo'} });
+        eq_((<any>resp).echoFoo, 'Hello');
+    }
+})

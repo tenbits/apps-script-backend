@@ -1,0 +1,79 @@
+import StorageService from '../../src/storage/StorageService'
+import Entity from '../../src/storage/Entity'
+import Table from '../../src/storage/Table'
+import { tableColumns, tableName, tableType, EntityHelper } from '../../src/storage/decorators'
+
+UTest({
+    'insert and get column' () {
+                
+        @tableColumns([
+            ['name'], 
+            ['age', { type: Number }]
+        ])
+        class CatEntity extends Entity {
+            name: string
+            age: number
+        }
+        @tableName('Cats_' + Date.now())
+        @tableType(CatEntity)
+        class CatsTable extends Table<CatEntity> {
+            
+        }
+
+        let storage = new StorageService('test');
+        
+        let column = EntityHelper.getColumn(CatEntity, 'name');
+        eq_(column, 1);
+        
+
+        let cat = new CatEntity();
+        cat.name = 'Barsik';
+        cat.age = 10;
+
+        let table = new CatsTable(storage);
+        table.upsert(cat);
+
+        let row = table.findRow('name', cat.name);
+        eq_(row, 1);
+        
+        cat.row = row;
+        cat.age = 12;
+        table.upsert(cat);
+
+        eq_(table.count(), 1);
+
+        let x = table.find('name', cat.name);
+        eq_(x.age, cat.age);
+
+        table.deleteRows(1, table.count());
+        eq_(table.count(), 0);
+    },
+
+    'insert with perfixed quotation (plain text)' () {
+        @tableColumns([
+            ['name', { type: String }], 
+            ['age', { type: Number }]
+        ])
+        class CatEntity extends Entity {
+            name: string
+            age: number
+        }
+        @tableName('Cats_' + Date.now())
+        @tableType(CatEntity)
+        class CatsTable extends Table<CatEntity> {
+            
+        }
+
+        let storage = new StorageService('test');
+        
+        let cat = new CatEntity();
+        cat.name = 'Barsik';
+        cat.age = 10;
+
+        let table = new CatsTable(storage);
+        table.upsert(cat);
+
+        let saved = table.find('age', 10);
+        eq_(saved.name, "'" + cat.name);
+    }
+})

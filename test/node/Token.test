@@ -1,0 +1,15 @@
+import {Timestamp} from '../../src/secure/Timestamp'
+
+UTest({
+    'encode decode' () {
+        Timestamp.configurate({ prime: 3, date: new Date(2017, 2, 2)});
+        let date = new Date();        
+        let token = Timestamp.encode(date);
+        let encoded = Timestamp.decode(token); 
+
+        let dateStr = date.toISOString().substring(0, date.toISOString().lastIndexOf('.'));
+        let encodedStr = encoded.toISOString().substring(0, encoded.toISOString().lastIndexOf('.'));
+
+        eq_(dateStr, encodedStr);
+    }
+})

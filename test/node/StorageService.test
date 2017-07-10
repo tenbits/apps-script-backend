@@ -1,0 +1,11 @@
+import StorageService from '../../src/storage/StorageService'
+
+UTest({
+    'insert and get column' () {
+        let storage = new StorageService('test');
+        storage.insertRow('test', ['foo', 'bar']);
+
+        let row = storage.findRow('test', 1, 'foo');
+        eq_(row, 1);
+    }
+})

@@ -1,0 +1,24 @@
+{
+  "name": "apps-script-backend",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/google-apps-script": "0.0.13",
+    "atma-loader-ts": "^1.0.0"
+  },
+  "atma": {
+    "plugins": [
+      "atma-loader-ts"
+    ],
+    "settings": {
+      "atma-loader-ts": {
+        "extensions": ["ts", "test"],
+        "typescript": {
+          "compilerOptions": {
+            "module": "AMD",
+            "sourceMap": false
+          }
+        }
+      }
+    }
+  }
+}
